@@ -23,7 +23,18 @@ jobs:
       - name: Push to GitHub Packages
         uses: docker/build-push-action@v2
         with:
-          context: .
-          tags: ghcr.io/jaredallencarterjac/app:latest
+          context: ./kfpboston/steps/preprocess
+          tags: ghcr.io/jaredallencarterjac/preprocess:latest
           push: true
-          
+      - name: Push to GitHub Packages
+        uses: docker/build-push-action@v2
+        with:
+          context: ./kfpboston/steps/train
+          tags: ghcr.io/jaredallencarterjac/train:latest
+          push: true
+      - name: Push to GitHub Packages
+        uses: docker/build-push-action@v2
+        with:
+          context: ./kfpboston/steps/test
+          tags: ghcr.io/jaredallencarterjac/test:latest
+          push: true
