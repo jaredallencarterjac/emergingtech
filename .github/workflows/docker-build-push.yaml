@@ -1,0 +1,14 @@
+name: GitHub Actions Demo
+on: [push]
+jobs:
+  Docker-build-push-github:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: mr-smithers-excellent/docker-build-push@v5
+      with:
+        image: preprocess
+        registry: ghcr.io
+        githubOrg: override-org # optional
+        username: ${{ secrets.GHCR_USERNAME }}
+        password: ${{ secrets.GHCR_TOKEN }}
+        default_branch: jared
