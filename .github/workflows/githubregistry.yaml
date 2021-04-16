@@ -25,4 +25,5 @@ jobs:
         with:
           context: .
           tags: ghcr.io/jaredallencarterjac/app:latest
+          push: true
           
