@@ -67,14 +67,14 @@ def pipeline_demo(
         arguments=[
             '--x_test', dsl.InputArgumentPath(preprocess_op.outputs['x_test']),
             '--y_test', dsl.InputArgumentPath(preprocess_op.outputs['y_test']),
-            '--model_1', dsl.InputArgumentPath(train_op_2.outputs['model_1'])
+            '--model_1', dsl.InputArgumentPath(train_op_1.outputs['model_1'])
         ],
         file_outputs={
             'mean_squared_error': '/app/output_1.txt'
         },  
     )
     
-    test_op.set_image_pull_policy("Always") 
+    test_op_1.set_image_pull_policy("Always") 
     
     test_op_2 = dsl.ContainerOp(
         name='Test_2 Model',
@@ -89,7 +89,7 @@ def pipeline_demo(
         },  
     )
     
-    test_op.set_image_pull_policy("Always") 
+    test_op_2.set_image_pull_policy("Always") 
 
 #applys to pipeline as whole
 #dsl.get_pipeline_conf().set_image_pull_secrets([k8s_client.V1ObjectReference(name="dockersecret")])
