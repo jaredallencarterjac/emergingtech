@@ -55,7 +55,9 @@ def pipeline_demo(
             '--model', dsl.InputArgumentPath(train_op.outputs['model'])
         ],
         file_outputs={
-            'mean_squared_error': '/app/output.txt'
+            'mean_squared_error': '/app/output.txt',
+            'model': '/app/model.pkl'
+            
         },  
     )
     
@@ -63,9 +65,9 @@ def pipeline_demo(
     
     deploy_op = dsl.ContainerOp(
         name='Deploy Model',
-        image='ghcr.io/jaredallencarterjac/deploy:latest'
+        image='ghcr.io/jaredallencarterjac/deploy:latest',
         arguments=[
-            '--model', dsl.InputArgumentPath(train_op.outputs['model'])
+            '--model', dsl.InputArgumentPath(test_op.outputs['model'])
         ]
     )
 
