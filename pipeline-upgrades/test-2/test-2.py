@@ -21,6 +21,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--x_test')
     parser.add_argument('--y_test')
-    parser.add_argument('--model')
+    parser.add_argument('--model_2')
     args = parser.parse_args()
-    test_model(args.x_test, args.y_test, args.model)
+    test_model(args.x_test, args.y_test, args.model_2)

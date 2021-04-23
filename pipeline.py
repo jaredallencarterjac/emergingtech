@@ -60,6 +60,14 @@ def pipeline_demo(
     )
     
     test_op.set_image_pull_policy("Always") 
+    
+    deploy_op = dsl.ContainerOp(
+        name='Deploy Model',
+        image='ghcr.io/jaredallencarterjac/deploy:latest'
+        arguments=[
+            '--model', dsl.InputArgumentPath(train_op.outputs['model'])
+        ]
+    )
 
 #applys to pipeline as whole
 #dsl.get_pipeline_conf().set_image_pull_secrets([k8s_client.V1ObjectReference(name="dockersecret")])
