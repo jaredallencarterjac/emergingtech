@@ -55,9 +55,7 @@ def pipeline_demo(
             '--model', dsl.InputArgumentPath(train_op.outputs['model'])
         ],
         file_outputs={
-            'mean_squared_error': '/app/output.txt',
-            'model': '/app/model.pkl'
-            
+            'mean_squared_error': '/app/output.txt'
         },  
     )
     
@@ -67,10 +65,10 @@ def pipeline_demo(
         name='Deploy Model',
         image='ghcr.io/jaredallencarterjac/deploy:latest',
         arguments=[
-            '--model', dsl.InputArgumentPath(test_op.outputs['model'])
+            '--model', dsl.InputArgumentPath(train_op.outputs['model'])
         ]
-    )
-
+    ).after(test_op)
+    deploy_op.set_image_pull_policy("Always") 
 #applys to pipeline as whole
 #dsl.get_pipeline_conf().set_image_pull_secrets([k8s_client.V1ObjectReference(name="dockersecret")])
    
